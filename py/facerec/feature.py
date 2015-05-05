@@ -125,6 +125,7 @@ class LDA(AbstractFeature):
         Sw = np.zeros((d, d), dtype=np.float32)
         Sb = np.zeros((d, d), dtype=np.float32)
         for i in range(0,c):
+            # print(i)
             Xi = XC[:,np.where(y==i)[0]]
             meanClass = np.mean(Xi, axis = 1).reshape(-1,1)
             Sw = Sw + np.dot((Xi-meanClass), (Xi-meanClass).T)
@@ -144,6 +145,10 @@ class LDA(AbstractFeature):
             features.append(xp)
         return features
         
+    def extract(self,X):
+        X = np.asarray(X).reshape(-1,1)
+        return self.project(X)
+
     def project(self, X):
         return np.dot(self._eigenvectors.T, X)
 
@@ -241,7 +246,7 @@ class SpatialHistogram(AbstractFeature):
         return features
     
     def extract(self,X):
-        X = np.asarray(X)
+        X = np.asarray(X[0]) # fixed
         return self.spatially_enhanced_histogram(X)
 
     def spatially_enhanced_histogram(self, X):

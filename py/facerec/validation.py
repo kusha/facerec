@@ -30,7 +30,7 @@ def shuffle(X, y):
 
             Shuffled input arrays.
     """
-    idx = np.argsort([random.random() for i in xrange(len(y))])
+    idx = np.argsort([random.random() for i in range(len(y))])
     y = np.asarray(y)
     X = [X[i] for i in idx]
     y = y[idx]
@@ -125,9 +125,9 @@ class ValidationStrategy(object):
         
     
     def print_results(self):
-        print self.model
+        print(self.model)
         for validation_result in self.validation_results:
-            print validation_result
+            print(validation_result)
 
     def __repr__(self):
         return "Validation Kernel (model=%s)" % (self.model)
@@ -189,9 +189,9 @@ class KFoldCrossValidation(ValidationStrategy):
             # calculate indices
             l = int(i*foldSize)
             h = int((i+1)*foldSize)
-            testIdx = slice_2d(foldIndices, cols=range(l,h), rows=range(0, c))
-            trainIdx = slice_2d(foldIndices,cols=range(0,l), rows=range(0,c))
-            trainIdx.extend(slice_2d(foldIndices,cols=range(h,n),rows=range(0,c)))
+            testIdx = slice_2d(foldIndices, cols=list(range(l,h)), rows=list(range(0, c)))
+            trainIdx = slice_2d(foldIndices,cols=list(range(0,l)), rows=list(range(0,c)))
+            trainIdx.extend(slice_2d(foldIndices,cols=list(range(h,n)),rows=list(range(0,c))))
             
             # build training data subset
             Xtrain = [X[t] for t in trainIdx]
@@ -254,8 +254,8 @@ class LeaveOneOutCrossValidation(ValidationStrategy):
             
             # create train index list
             trainIdx = []
-            trainIdx.extend(range(0,i))
-            trainIdx.extend(range(i+1,n))
+            trainIdx.extend(list(range(0,i)))
+            trainIdx.extend(list(range(i+1,n)))
             
             # build training data/test data subset
             Xtrain = [X[t] for t in trainIdx]

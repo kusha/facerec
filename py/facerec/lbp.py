@@ -42,6 +42,7 @@ class ExtendedLBP(LocalDescriptor):
         
     def __call__(self,X):
         X = np.asanyarray(X)
+        # print(X.shape)
         ysize, xsize = X.shape
         # define circle
         angles = 2*np.pi/self._neighbors
